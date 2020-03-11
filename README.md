@@ -1,2 +1,2 @@
 # University-Projects
-Added here are semester projects all starting from semester 4 till semester 9.
+Added here are most of the semester projects starting from semester 4 till semester 9.
