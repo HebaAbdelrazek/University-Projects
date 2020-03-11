@@ -1,0 +1,13 @@
+module signExtend(out,in,clk);
+output [31:0] out;
+input [15:0] in;
+input clk;
+
+assign out = $signed(in);
+
+always @(posedge clk)
+begin
+$display("%b %b", in, out);
+end
+
+endmodule 

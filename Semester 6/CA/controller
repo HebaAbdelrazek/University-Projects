@@ -1,0 +1,21 @@
+module controller(opcode,wb,m,ex);
+input [5:0] opcode;
+output reg [1:0] wb;
+output reg [2:0] m;
+output reg [3:0] ex;
+
+always @(opcode)
+begin
+    case(opcode)
+    6'b000000: begin ex <= 4'b1100; wb <= 2'b10; m <= 3'b000; end //add + sub + and + or + sll + srl + slt + sltu
+    6'b001000: begin ex <= 4'b0101; wb <= 2'b10; m <= 3'b000; end //addi
+    6'b100011: begin ex <= 4'b0001; wb <= 2'b11; m <= 3'b010; end //lw
+    6'b101011: begin ex <= 4'bx001; wb <= 2'b0x; m <= 3'b001; end //sw
+    6'b100101: begin ex <= 4'b0001; wb <= 2'b11; m <= 3'b010; end //lhu
+    6'b100001: begin ex <= 4'b0001; wb <= 2'b11; m <= 3'b010; end //lh 
+    6'b000100: begin ex <= 4'bx010; wb <= 2'b0x; m <= 3'b100; end //beq
+    endcase
+end
+
+endmodule
+

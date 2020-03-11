@@ -1,0 +1,28 @@
+module testDataMemory(); 
+
+reg memRead, memWrite;
+reg [31:0] address;
+reg [31:0] writeData;
+reg clk ;
+wire [31:0] readData;
+dataMemory r(readData, memRead, memWrite, address, writeData);
+
+
+
+initial
+begin
+$monitor("%t %b %b %b %b %b %b", $time, readData, memRead, memWrite, address, writeData);
+
+
+memWrite <= 1;
+address <= 0;
+writeData <= 16;
+
+
+#5 memRead <=1;
+ memWrite <=0;
+
+
+#15 $finish;
+end
+endmodule

@@ -1,0 +1,112 @@
+module instructionMemory(output reg [31:0] instruction, input [31:0] address);
+
+reg [7:0] memory [31:0];
+integer index;
+
+
+//always @(posedge clk)
+//begin
+//for(index = 0; index < 32; index = index + 4) begin
+//$display("%b %b %b %b", memory[index], memory[index+1], memory[index+2], memory[index+3] );
+//end
+//end
+
+
+always @(instruction or address)
+begin
+	//memory[0] = 8'h20; //addi $t0 $zero, 8
+	//memory[1] = 8'h08;
+	//memory[2] = 8'h00;
+	//memory[3] = 8'h08;
+
+       // memory[4] = 8'h20; //addi $t2, $zero,9
+	//memory[5] = 8'h0A;
+	//memory[6] = 8'h00;
+	//memory[7] = 8'h09;
+
+        //memory[0] = 8'hAC; //sw $t1, 0($zero)
+	//memory[1] = 8'h09;
+	//memory[2] = 8'h00;
+	//memory[3] = 8'h00;
+
+
+        //memory[4] = 8'hAC; //sw $t2, 0($zero)
+	//memory[5] = 8'h0A;
+	//memory[6] = 8'h00;
+	//memory[7] = 8'h04;
+
+
+        //memory[0] = 8'h8C; //lw $t6, 0($zero)
+	//memory[1] = 8'h0E;
+	//memory[2] = 8'h00;
+	//memory[3] = 8'h00;
+
+
+        //memory[4] = 8'h8D; //lw $t7, 0($t1)
+	//memory[5] = 8'h2F;
+	//memory[6] = 8'h00;
+	//memory[7] = 8'h00;
+
+
+     //   memory[0] = 8'h01; //add $t6, $t1, $t2
+	//memory[1] = 8'h2A;
+	//memory[2] = 8'h70;
+	//memory[3] = 8'h20;
+
+	
+	//memory[4] = 8'h01; //add $t7, $t3, $t4
+	//memory[5] = 8'h6C;
+	//memory[6] = 8'h78;
+	//memory[7] = 8'h20;
+
+       // memory[0] = 8'h11; 
+	//memory[1] = 8'h2A;
+	//memory[2] = 8'h00;
+	//memory[3] = 8'h01;
+
+
+        memory[0] = 8'h8C; 
+	memory[1] = 8'h0E;
+	memory[2] = 8'h00;
+	memory[3] = 8'h00;
+
+        memory[4] = 8'h01; 
+	memory[5] = 8'h6C;
+	memory[6] = 8'h78;
+	memory[7] = 8'h22;
+
+       
+      
+	
+end
+
+always @(instruction or address)
+begin
+ instruction = {memory[address], memory[address+1], memory[address+2], memory[address+3]};
+end
+
+endmodule 
+
+
+module testInstructionMemory ();
+wire [31:0] instruction;
+reg [31:0] address;
+
+
+instructionMemory memory (instruction, address);
+
+
+
+
+initial
+begin
+$monitor("%t %b %b ", $time, instruction, address);
+
+address <= 1;
+
+#15 $finish;
+end
+
+
+
+endmodule 
